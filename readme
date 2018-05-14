@@ -1,6 +1,6 @@
 Automatic Sender Policy Framework Reconnaissance 
 v1a
-Proof of Concenpt: This shell script will read SysLog messages for Bind9 messages, looking for queries originating from SMTP servers processing SPF records.
+Proof of Concept: This shell script will read SysLog messages for Bind9 messages, looking for queries originating from SMTP servers processing SPF records.
 
 Twitter: @Krelkci
 Github: Relkci
