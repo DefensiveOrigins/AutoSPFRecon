@@ -48,6 +48,12 @@ $TTL 3D
 localhost       A       127.0.0.1
 ns      A       IP-OF-AutoSPFRecon
 
+Configure Bind to log DNS queries to /var/log/syslog:
+	#below command toggles query logging, be sure it is enabled
+	rdnc querylog
+	#confirm it is turned on with 
+	tail -n 2 /var/log/syslog
+
 
 Setup your DNS records
 	See the blog post: [TBA] 
