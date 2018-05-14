@@ -1,0 +1,69 @@
+Automatic Sender Policy Framework Reconnaissance 
+v1a
+Proof of Concenpt: This shell script will read SysLog messages for Bind9 messages, looking for queries originating from SMTP servers processing SPF records.
+
+Twitter: @Krelkci
+Github: Relkci
+WWW: https://www.blackhillsinfosec.com
+
+See blog post for information.
+	Blog on Auto SPF Recon: [URL-TBA]
+	Blog on SPF for the masses: [URL-TBA]
+	
+Installation:
+	cd /opt/
+	git-clone https://github.com/Relkci/AutoSPFRecon.git
+
+Pre-Reqs:
+	apt-get install bind9
+	apt-get install logtail
+	apt-get install python-setuptools
+	easy_install click
+	easy_install shodan
+
+Setup your SMTP Relay (I used SendGrid)
+	nano /etc/ssmtp/ssmtp.conf
+
+Setup your BIND9 Domain -named.conf
+	nano /etc/bind/named.conf
+
+zone "AutoSPF.YOURDOMAIN.TLD" {
+        type master;
+        notify no;
+        file "/etc/bind/autospf.yourdomain.tld";
+};
+
+Setup your BIND9 Domain - zone file
+	nano /etc/bind/autospf.yourdomain.tld
+$TTL 3D
+@       IN      SOA     autospf.ns.yourdomain.tld. admin@yourdomain.tld (
+                        199802151       ; serial, todays date + todays serial #
+                        21600              ; refresh, seconds
+                        3600              ; retry, seconds
+                        604800              ; expire, seconds
+                        30 )            ; minimum, seconds
+;
+                NS      ns              ; Inet Address of name server
+;
+localhost       A       127.0.0.1
+ns      A       IP-OF-AutoSPFRecon
+
+
+Setup your DNS records
+	See the blog post: [TBA] 
+	**CAUTION** Setting the SPF RECORD AS BELOW WILL TELL ALL MAIL SERVERS TO REJECT YOUR EMAIL
+	See our blog post on SPF Records to create a proper SPF record for your organization.
+
+On your TLD nameserver:
+	Type: A 	Host: autospf.ns.yourdomain.tld Value: IP-OF-AutoSPFRecon
+	Type: NS 	Host: autospf.yourdomain.tld 	Value: autospf.ns.yourdomain.tld
+	Type: TXT	Host: @ 						Value: "v=spf1 -exist:%{i}.autospf.yourdomain.tld -all"
+
+Files:
+	AutoReconSFP.sh - Main Script
+
+Setup Crontab: 
+	This script can be configured to be triggered by crontab every x minutes.
+	crontab -e
+	Add the following:
+	*/5 * * * * /opt/AutoReconSFP/AutoReconSPF.sh
