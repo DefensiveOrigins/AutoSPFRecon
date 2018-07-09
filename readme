@@ -7,8 +7,8 @@ Github: Relkci
 WWW: https://www.blackhillsinfosec.com
 
 See blog post for information.
-	Blog on Auto SPF Recon: [URL-TBA]
-	Blog on SPF for the masses: [URL-TBA]
+	Blog on Auto SPF Recon: https://www.blackhillsinfosec.com/offensive-spf-how-to-automate-anti-phishing-reconnaissance-using-sender-policy-framework/
+	Blog on SPFv1 for the masses: https://www.blackhillsinfosec.com/how-to-configure-spfv1-explained-for-the-masses/
 	
 Installation:
 	cd /opt/
