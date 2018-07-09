@@ -63,7 +63,7 @@ Setup your DNS records
 On your TLD nameserver:
 	Type: A 	Host: autospf.ns.yourdomain.tld Value: IP-OF-AutoSPFRecon
 	Type: NS 	Host: autospf.yourdomain.tld 	Value: autospf.ns.yourdomain.tld
-	Type: TXT	Host: @ 						Value: "v=spf1 -exist:%{i}.autospf.yourdomain.tld -all"
+	Type: TXT	Host: @ 						Value: "v=spf1 -exists:%{i}.autospf.yourdomain.tld -all"
 
 Files:
 	AutoReconSFP.sh - Main Script
